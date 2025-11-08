@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>Images/SDBoot.png</file>
+        <file>Images/SDCardIllu.png</file>
+        <file>Images/SDLinux.png</file>
+        <file>Images/main.cpp</file>
+        <file>Images/WarningIcon.png</file>
+        <file>Images/XNLFt.png</file>
+        <file>Images/SDRoms.png</file>
+        <file>Images/AppIcon.ico</file>
+        <file>Images/AboutImg.jpg</file>
+    </qresource>
+</RCC>

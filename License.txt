@@ -1,0 +1,67 @@
+ =========================================================================================================================
+ XNL Future Technologies R36 Linux Partition Sizer
+ =========================================================================================================================
+ Purpose: This program is basically an (EXTREMELY xD) over-engineered tool to simply modify the file expandtoexfat.sh
+ and change a simple numeric value in it and then saving it again with UTF-8 format. Nothing which could not easily be
+ done with Kate (KDE) for example, I just wanted to make a small program for this to make it easier for my community
+ to set a custom Linux/ArkOS partition size.
+
+ At the same time I wanted to take this opportunity to make a small C++ (With Qt) program with LOTS of comments in
+ it so beginners might learn a something from it on how I did things and why I did certain things.
+
+---------------------------------------------------------------------------------------------------------
+ Copyright: © 2025 XNL Future Technologies
+ Website:   https://www.teamxnl.com/R36-Linux-Partition-Sizer
+ YouTube:   https://www.youtube.com/XNLFutureTechnologies
+ YouTube 2: https://www.youtube.com/XNLFutureTechnologies2
+ License:   Source code is only intended for educational purposes and to give people
+            the ability to 'take a look' what this application is doing. It CAN be used
+            to learn from and use snippets to make (a different) program from them for yourself and
+            also for public release, but it's not allowed to modify this program and then re-release
+            it as an alternative version (more explained on why bellow)
+            for the full license please visit the website of this project/program (listed above)
+
+  ## Third-Party Software Notices
+  This application uses the Qt 5 framework, which is licensed under the
+  GNU Lesser General Public License (LGPL) version 3.
+
+  - Qt Copyright: © The Qt Company Ltd and other contributors
+  - Qt License: LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.html)
+  - Qt Source Code: https://www.qt.io/download-open-source
+  - Qt Version Used: [5.15.13]
+
+  Qt libraries are dynamically linked
+  For more information about Qt licensing, visit: https://www.qt.io/licensing/
+---------------------------------------------------------------------------------------------------------
+
+ Reason why I don't allow alternative versions of this program in the license:
+ Because like stated at the top already: It's just an over-engineered tool which basically (in the end)
+ does nothing more than just changing one numeric value in a text file (.sh actually).
+ And I don't see any need why this needs to be forked and re-published/released dozens of times when
+ this program just does what it needs to do.
+
+ Q: So I can't adapt it so that it also works for my device (which uses different files and such)?
+ A: NO, because that would defeat the whole purpose of my application which makes it super clear that
+    it's intended for the R36S and R36H (and most likely also usable for the RG351MP). If there would
+    be dozens of variations of my program with just minor changes in the code and some slight graphical
+    adjustments it would only clutter the internet with dozens of variations and cause confusion, or it
+    will result in lots of repositories which are all at a different version, alternative version etc
+    without being transparent about WHAT has changed or not compared to the original
+    (which happens more than enough already these days in my opinion).
+
+ Q: But what if I COMPLETELY re-do the UI, make sure there is no confusion with this version etc?
+ A: IF it is indeed for a completely different device which would otherwise not be supported by my
+    version (also not when holding shift while starting the application), AND you are going to re-do
+    the application UI, make your own icons/images, remove my logo/branding from it etc, THEN it
+    won't be a problem. That would be an exception to the license limitation(s) for the source code.
+    HOWEVER, you are then still required to include credits in your source-code, your version has
+    has to be SHARE-A-LIKE (and thus also be published WITH open-source), and the compiled version
+    will need to include credits to this version and a link to the website of this version (the teamxnl.com page)
+    in for example the about screen (for example something like: Based on the XNL R36 Linux Partition Sizer).
+
+    But in my honest opinion? Just don't clutter the internet with yet another version of this program and
+    instead just make your own version which is specifically designed for your device(s) inspired on/by this one :)
+
+   IMPORTANT Note: The license 'restrictions' described above obviously only apply to the source code of this program,
+   not to the used Qt Libraries/framework (which are not included in the download btw, but just want to make this clear)
+=========================================================================================================================

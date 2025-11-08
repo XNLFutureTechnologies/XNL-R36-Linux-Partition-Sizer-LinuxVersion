@@ -1,0 +1,85 @@
+==========================================================================================================
+Project/Product:		XNL R36 Linux Partition Sizer (Linux Version C++ (With Qt) Source Code)
+By:						XNL Future Technologies
+Project/Product Page:	https://www.teamxnl.com/r36-linux-partition-sizer
+YouTube:				https://www.youtube.com/@XNLFutureTechnologies
+==========================================================================================================
+This is the Source code of the XNL R36 Linux Partition Sizer, it is written in C++ (With Qt Creator for the GUI part)
+
+Qt Creator should be installed to view and edit the GUI parts of the application, most distro's have it
+in their repos. For example for Kubuntu you can simple open Discover and install Qt Creator.
+
+The XNL R36 Linux Partition Sizer uses the Qt framework for its GUI, which is licensed
+under the GNU Lesser General Public License (LGPL).
+For more information about Qt and its licensing, visit: https://www.qt.io/licensing/
+
+PERSONALLY I recommend using VSCode to edit the code/source files (but that's just my preference of course).
+You can download VSCode for Linux (for free) here: https://code.visualstudio.com/docs/setup/linux
+
+
+/// Requirements/Dependencies (Runtime)
+Required dependencies (to run the application itself, which should on most KDE desktops already be present):
+libqt5widgets5 libqt5gui5 libqt5dbus5 libqt5core5a libgl1
+
+Install example for Ubuntu/APT based distro's:
+sudo apt update
+sudo apt install libqt5widgets5 libqt5gui5 libqt5dbus5 libqt5core5a libgl1
+
+
+
+/// Required Dependencies (Development)
+I recommend installing Qt Creator from your distro's package manager (for example Discover for KDE desktops)
+and then IF needed install the following packages: build-essential pkg-config qtbase5-dev qt5-qmake qttools5-dev-tools
+Ubuntu based install command example (adjust for your own package manager of course if using a different distro):
+sudo apt install build-essential pkg-config
+sudo apt install qtbase5-dev qt5-qmake qttools5-dev-tools
+
+
+///Required dependencies (which I suspect already be present on every distro):
+These dependencies should already be installed in nearly all (if not all?) Linux Destop distributions,
+Otherwise you MIGHT need to install util-linux, dbus and/or udisks2 (however I HIGHLY doubt this would be
+needed, I just mention them if distro's I don't know/haven't used dont include them).
+Example Ubuntu based command to install them: sudo apt install util-linux dbus udisks2
+
+/// How to edit the GUI
+Either open the .pro file (R36_Linux_Partition_Sizer_Qt.pro) with Qt Creator or simply run
+  qtcreator R36_Linux_Partition_Sizer_Qt.pro &
+from the terminal (after you of course installed Qt Creator)
+
+
+/// Compiling the application
+To compile the application (of course first navigate to the source directory ;) and then) run:
+qmake
+make
+
+/// Running the application
+./XNLR36LinuxPartitionSizer  should basically do 'the trick' 😊
+
+
+/// My SDCard/Cardreader isn't recognized!
+It is indeed possible that your cardreader/sdcard isn't recognized for some cardreaders.
+Most (USB and internal) card-readers should be just fine though. However this program is designed to only support sdxx cardreaders
+(for example: /dev/sda1), and does NOT support cardreaders which use a device path like /dev/mmcblk.
+This however is mostly only an issue on singleboard computers like for example an Raspberry Pi.
+Even (all of our) Microsoft Surfaces just use /dev/sdxxx for their internal SD-Card readers.
+The reason I decided to exclude 'mmcblk readers' is to prevent possible mounting/unmounting issues of actual
+system partitions on such systems. And although that risk is fairly low (due to all the other checks this program already does),
+I just don't want to take any risks with a tool like this which is basially intended for mostly standard users or Linux beginners
+(since the more pro users will most likely just edit the bootscript manually 😊)
+
+
+This source code is intended for educational purposes, NOT to be altered and republished by everyone,
+this to prevent "cluttering the internet" with dozens of different versions of this programs with minimal
+to no changes, and/or to prevent confusion when people want to download my version and then end up struggling
+the 'correct version' because there are dozens of different versions all with slight changes, version numbers etc
+and thus confusing my users with which version they should actually use.
+
+IF you are using PORTIONS of this source code to make your own version from scratch, don't (re-) use my layout,
+images, logo(s) and/or application name, then that's all fine by me 😊. If you are re-using portions of this
+program and/or it's source-code, then appropriate attribution (crediting XNL Future Technologies and for example
+linking to the website of this program in the about screen) will be required.
+
+For additional information, the most recent version and license information, please check the official website
+for the XNL R36 Linux Partition Resizer: https://www.teamxnl.com/r36-linux-partition-sizer
+
+==========================================================================================================
