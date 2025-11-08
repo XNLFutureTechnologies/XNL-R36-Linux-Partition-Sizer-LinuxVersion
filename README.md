@@ -1,6 +1,8 @@
 # XNL R36 Linux Partition Sizer (Linux Version)
 This is the source code of the [XNL R36 Linux Partition Size](https://www.teamxnl.com/r36-linux-partition-sizer/).  
 
+This Linux version has basically been (nearly) completely rewritten in C++ (while using Qt for the GUI) to step away from the platform dependent mess with my projects😉
+
 This program makes it increddibly easy for standard users to assign additional storage space to the Linux/ArkOS partition of their R36S/R36H. This tool NEEDS to be used directly after flashing the ArkOS image to your SD-Card, and thus before inserting (and booting) the SD-Card for the first time in the R36S/R36H. 
 
 More information about this process, why and how it works can yet again be found on the official website (which is listed above).  
