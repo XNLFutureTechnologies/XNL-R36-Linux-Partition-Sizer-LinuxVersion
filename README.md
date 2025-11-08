@@ -5,7 +5,7 @@ This program makes it increddibly easy for standard users to assign additional s
 
 More information about this process, why and how it works can yet again be found on the official website (which is listed above).  
 
-Here is a small GIF Demo of the XNL R36 Linux Partition Sizer and the result:
+Here is a small GIF Demo of the XNL R36 Linux Partition Sizer and the result (Running On Kubuntu 24.04LTS with KDE Plasma Breeze Light):
 ![Demo Animation](demo.gif)
 
 
