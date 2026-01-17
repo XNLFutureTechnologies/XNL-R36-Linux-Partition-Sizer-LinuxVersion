@@ -87,7 +87,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Version 1.0.1</string>
+    <string>Version 2.0.1</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -255,7 +255,7 @@
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#2980b9;&quot;&gt;Install or Updating ArkOS R36S &amp;amp; R36H Tutorial (XNL Ft)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#2980b9;&quot;&gt;Install or Updating (d)ArkOS R36S &amp;amp; R36H Tutorial (XNL Ft)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="LinkLabel8">
@@ -351,7 +351,7 @@
     <rect>
      <x>200</x>
      <y>293</y>
-     <width>201</width>
+     <width>211</width>
      <height>21</height>
     </rect>
    </property>

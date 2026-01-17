@@ -99,7 +99,7 @@ static QString BOOTPartitionMountPoint = "";         // Used to 'store' the Boot
 static bool BootedInIgnoreCompatibility = false;     // Used to register if users have booted the application while holding down shift to ignore the R36 Only limitations, and thus taking the risk themselves that they might mess up their Linux Configuration
 static qint64 MaxDriveSizeLimit = 0;                 // Global Variable which will be used to calculate and set the maximum allowed size (via the slider) for the Linux Partition
 static qint64 DetectedDriveSize = 0;                 // Global variable which will be used to store the detected total Drive size
-static qint64 CurLinuxArkOSPartSize = 0;             // Global variable which will be used to store the minimal Linux/ArkOS partition size (retrieved from the initial boot files and set by the ArkOS Developer)
+static qint64 CurLinuxArkOSPartSize = 0;             // Global variable which will be used to store the minimal Linux/ArkOS partition size (retrieved from the initial boot files and set by the (d)ArkOS Developer)
 static qint64 BootDriveSize = 0;                     // Global variable which will be used to store the boot partition size
 static qint64 ReservedRomPartition = 5368709120;     // Mandatory minimal size (5GB/GiB in Base-2! 1GB = 1024MB) for the ROMS Partition (to prevent possible issues with temp files, other apps/games etc)
 static qint64 BaseCalc = 1024;                       // The Application is by default configured to use Base-2 (1KB = 1024bytes, 1GB = 1024MB etc), but this can be changed with the radio buttons by the user
@@ -128,7 +128,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent), ui(new Ui::MainWind
         printf("This program is an GUI Application (Qt based under LGPL)\n");
         printf("Please run it as a normal (desktop) application.\n\n");
         printf("Advanced Feature:\n");
-        printf("--ignore-compat Will make the XNL R36 Linux Partition Sizer skip the checks for R36/RG351MP Specific ArkOS bootfiles.\n");
+        printf("--ignore-compat Will make the XNL R36 Linux Partition Sizer skip the checks for R36/RG351MP Specific (d)ArkOS bootfiles.\n");
         printf("Do however ONLY use this function if you REALLY know what your doing, and do realize this is at your own risk!\n");
         XNLExit();
     }
@@ -340,11 +340,11 @@ void MainWindow::onApplyClicked() {
     // then it is just his/her own fault if stuff goes wrong ;) (Let's be honest: If you on purpose remove or swap the SD-Card
     // after the application has started and done it's safety checks, then you VERY WELL know what you are trying to do!)
 
-    // Ask the user if he/she is happy with the currently set configuration or not and if he/she wants to proceed to write the modifications to the initial bootfiles or ArkOS
+    // Ask the user if he/she is happy with the currently set configuration or not and if he/she wants to proceed to write the modifications to the initial bootfiles or (d)ArkOS
     if (QMessageBox::question(this, "XNL R36 Linux Partition Sizer", 
-        QString("You are about to configure the initial boot scripts of your ArkOS installation for the following sizes:<br>"
+        QString("You are about to configure the initial boot scripts of your (d)ArkOS installation for the following sizes:<br>"
                 "Boot Partition: <b>%1</b> (Fixed size)<br>"
-                "Linux/ArkOS Partition: <b>%2</b><br>"
+                "Linux/(d)ArkOS Partition: <b>%2</b><br>"
                 "ROM's Partition: <b>%3</b><br><br>"
                 "Are you sure that this is the desired configuration?<br><br>"
                 "NOTE:<br><b>Modifying the initial boot scripts is of course <u>at your own risk</u>!</b><br><br>"
@@ -363,7 +363,7 @@ void MainWindow::onApplyClicked() {
     QString ExpandtoExfatScriptXNLBackupPath = BOOTPartitionMountPoint + "/expandtoexfat.xbck";
 
     if ((QFile::exists(dtbFilePath) || BootedInIgnoreCompatibility) && QFile::exists(FirstBootScriptPath) && QFile::exists(ExpandtoExfatScriptPath)) {
-        // Then I will once more load the partition size set by the developer of the ArkOS image which was used to flash the SD-Card
+        // Then I will once more load the partition size set by the developer of the (d)ArkOS image which was used to flash the SD-Card
         qint64 CurLinuxArkOSPartSizeCheck = GetCurrentArkOSPartSize(BOOTPartitionMountPoint + "/expandtoexfat.sh");
 
         // I will check if the SD-Card still has the same size as when the application was started
@@ -388,7 +388,7 @@ void MainWindow::onApplyClicked() {
         if (DetectedDriveSizeCheck != DetectedDriveSize)
         {
             // Well tell the user that we refuse to continue because basically 'something fishy is going on'
-            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "The SD-Card size does not seem to match with the size of the SD-Card which was detected upon starting the XNL R36 Linux Partition Sizer!\n\nI don't know what you are trying to do, but this program is ONLY intended to be used with ArkOS for use on the R36S/R36H for a reason.\n\nIf you just wanted to do another SD-Card for a different R36S/R36H then please just restart the XNL R36 Linux Partition Sizer to start over with a fresh set of data.\n\nSave operation canceled.");
+            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "The SD-Card size does not seem to match with the size of the SD-Card which was detected upon starting the XNL R36 Linux Partition Sizer!\n\nI don't know what you are trying to do, but this program is ONLY intended to be used with (d)ArkOS for use on the R36S/R36H for a reason.\n\nIf you just wanted to do another SD-Card for a different R36S/R36H then please just restart the XNL R36 Linux Partition Sizer to start over with a fresh set of data.\n\nSave operation canceled.");
             return;
         }
 
@@ -396,7 +396,7 @@ void MainWindow::onApplyClicked() {
         // BUT, if the application has been started while we loaded the data (partially) from a backup already created by this program, then we'll ignore this check
         if (CurLinuxArkOSPartSizeCheck != CurLinuxArkOSPartSize && !UsedBackupScript)
         {
-            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "The data in the initial boot scripts for ArkOS doesn't seem to match with the data which was detected upon starting the XNL R36 Linux Partition Sizer!\n\nI don't know what you are trying to do, but this program is ONLY intended to be used with ArkOS for use on the R36S/R36H for a reason.\n\nIf you just wanted to do another SD-Card for a different R36S/R36H then please just restart the XNL R36 Linux Partition Sizer to start over with a fresh set of data.\n\nSave operation canceled.");
+            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "The data in the initial boot scripts for (d)ArkOS doesn't seem to match with the data which was detected upon starting the XNL R36 Linux Partition Sizer!\n\nI don't know what you are trying to do, but this program is ONLY intended to be used with (d)ArkOS for use on the R36S/R36H for a reason.\n\nIf you just wanted to do another SD-Card for a different R36S/R36H then please just restart the XNL R36 Linux Partition Sizer to start over with a fresh set of data.\n\nSave operation canceled.");
             return;
         }
 
@@ -417,7 +417,7 @@ void MainWindow::onApplyClicked() {
             // XNL Ft. Linux Partition Ext
             // In this file we'll store the size with which we've increased the Linux partition,
             // this can then be used by my other programs running on the R36 like the XNL Package Manager for example to determine IF
-            // it would be 'safe' to install very large packages without 'stealing' reserved storage space from future updates of ArkOS
+            // it would be 'safe' to install very large packages without 'stealing' reserved storage space from future updates of (d)ArkOS
             qint64 AddedSize = static_cast<qint64>(ui->tbSizeAdjuster->value()) * 1000000;
             QFile outFile(BOOTPartitionMountPoint + ".xnlft-linpatext");
             if (outFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
@@ -429,17 +429,17 @@ void MainWindow::onApplyClicked() {
             }
             
             // Tell the user we have successfully managed to update the bootscript
-            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "The Initial Boot Files for your ArkOS installation have successfully been updated.\n\nAfter unmounting you can remove the SD-Card from your computer, insert it into your R36S/R36H and ArkOS will do the rest for you (re-sizing the partitions) upon it's first boot.\n\nThe XNL R36 Linux Partition Sizer will now exit.");
+            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "The Initial Boot Files for your (d)ArkOS installation have successfully been updated.\n\nAfter unmounting you can remove the SD-Card from your computer, insert it into your R36S/R36H and (d)ArkOS will do the rest for you (re-sizing the partitions) upon it's first boot.\n\nThe XNL R36 Linux Partition Sizer will now exit.");
             // Offer to unmount the partition if we have mounted it with this application
             offerUnmountBootPartition();
             // And then just "XNL Exit" the application directly
             XNLExit();
         }else{
             // If we've failed to update the bootscript, we'll tell the user about this situation and what they MIGHT need to try
-            QMessageBox::critical(this, "XNL R36 Linux Partition Sizer", "An unknown error occurred while trying to update the initial partition creation bootscript!\n\nPlease proceed with caution or manually restore the created backup expandtoexfat.xbck by renaming it back to expandtoexfat.sh\n\nIt might also be needed to just re-flash the entire ArkOS image to your SD-Card (worse-case-scenario though).");
+            QMessageBox::critical(this, "XNL R36 Linux Partition Sizer", "An unknown error occurred while trying to update the initial partition creation bootscript!\n\nPlease proceed with caution or manually restore the created backup expandtoexfat.xbck by renaming it back to expandtoexfat.sh\n\nIt might also be needed to just re-flash the entire (d)ArkOS image to your SD-Card (worse-case-scenario though).");
         }
     }else{
-        QMessageBox::critical(nullptr, "XNL R36 Linux Partition Sizer", "For some reason the expected bootfiles for the R36S/R36H are no longer being detected as present on the SD-Card!\n\nI don't know what you are trying to do, but this program is ONLY intended to be used with ArkOS for use on the R36S/R36H for a reason.\n\nIf you just wanted to do another SD-Card for a different R36S/R36H then please just restart the XNL R36 Linux Partition Sizer to start over with a fresh set of data.\n\nSave opperation canceled.");
+        QMessageBox::critical(nullptr, "XNL R36 Linux Partition Sizer", "For some reason the expected bootfiles for the R36S/R36H are no longer being detected as present on the SD-Card!\n\nI don't know what you are trying to do, but this program is ONLY intended to be used with (d)ArkOS for use on the R36S/R36H for a reason.\n\nIf you just wanted to do another SD-Card for a different R36S/R36H then please just restart the XNL R36 Linux Partition Sizer to start over with a fresh set of data.\n\nSave opperation canceled.");
         return;
     }
 }
@@ -501,13 +501,13 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 
         // Opens a browser to the R36 Central Page (after first confirming IF the user would like to do so)
         if (obj == ui->LlblWebsite_2) {
-            OpenExternalLinkWithConfirm("This will open a (new) browser window to my 'R36S & R36H ArkOS Central Page', this page basically contains all kinds of resources, information, links (both my own and external) and a collection of releases I've made for the R36S and R36H:\nhttps://www.teamxnl.com/r36s-r36h-arkos-central/\n\nDo you want to continue to visit the XNL R36S & R36H ArkOS Central Page?", "https://www.teamxnl.com/r36s-r36h-arkos-central/");
+            OpenExternalLinkWithConfirm("This will open a (new) browser window to my 'R36S & R36H (d)ArkOS Central Page', this page basically contains all kinds of resources, information, links (both my own and external) and a collection of releases I've made for the R36S and R36H:\nhttps://www.teamxnl.com/r36s-r36h-arkos-central/\n\nDo you want to continue to visit the XNL R36S & R36H (d)ArkOS Central Page?", "https://www.teamxnl.com/r36s-r36h-arkos-central/");
             return true;
         }
 
         // Help/Info section of the Boot Partition Size
         if (obj == ui->imgBootPartition) {
-            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This SD-Card represents the BOOT Partition of your SD-Card, this partition basically contains the (like the name suggests) boot files needed to boot Linux/ArkOS.\n\nThis is also the partition on which your dtb files (and \"display drivers\" simply put) are located.\n\nNOTE: You can't change the size of this boot partition, and neither should you use it for anything else.");
+            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This SD-Card represents the BOOT Partition of your SD-Card, this partition basically contains the (like the name suggests) boot files needed to boot Linux/(d)ArkOS.\n\nThis is also the partition on which your dtb files (and \"display drivers\" simply put) are located.\n\nNOTE: You can't change the size of this boot partition, and neither should you use it for anything else.");
             return true;
         }
 
@@ -546,14 +546,14 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
             }else{
                 // And if the user isn't holding down ctrl+shift while clicking on the image/label,
                 // we'll just show the normal informational dialog/popup
-                QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This SD-Card represents the selected size of the Linux/ArkOS Partition of your SD-Card after you save the changes with the XNL R36 Linux Partition Sizer.\n\nThe minimum allowed size for this partition has been set by the developer of the ArkOS image you've used to flash this SD-Card.\n\nTIP: Click on help at the top right if you want some general tips/recommendations about the size options for your Linux partition.");
+                QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This SD-Card represents the selected size of the Linux/(d)ArkOS Partition of your SD-Card after you save the changes with the XNL R36 Linux Partition Sizer.\n\nThe minimum allowed size for this partition has been set by the developer of the (d)ArkOS image you've used to flash this SD-Card.\n\nTIP: Click on help at the top right if you want some general tips/recommendations about the size options for your Linux partition.");
             }
             return true;
         }
 
         // Help/Info section of the Roms Partition Size
         if (obj == ui->imgRomsPartition) {
-            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This SD-Card represents the selected size of the ROM's partition (often labled EASYROMS) after you save the changes with the XNL R36 Linux Partition Sizer.\n\nWhen you increase the size of the Linux/ArkOS partition (to for example make/reserve more space for additional software, mods, drivers etc), you will basically 'sacrifice' the extra amount you are assigning to Linux/ArkOS from the ROM's partition.\n\nThe XNL Linux Partition Sizer has a hardcoded limit which prevents you shrinking the ROM's partition bellow 5GB. This to prevent possible compatibility issues with other applications, games, scripts etc.\n\nNOTE: This limit is set with base-2 (1GB = 1024MB).");
+            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This SD-Card represents the selected size of the ROM's partition (often labled EASYROMS) after you save the changes with the XNL R36 Linux Partition Sizer.\n\nWhen you increase the size of the Linux/(d)ArkOS partition (to for example make/reserve more space for additional software, mods, drivers etc), you will basically 'sacrifice' the extra amount you are assigning to Linux/(d)ArkOS from the ROM's partition.\n\nThe XNL Linux Partition Sizer has a hardcoded limit which prevents you shrinking the ROM's partition bellow 5GB. This to prevent possible compatibility issues with other applications, games, scripts etc.\n\nNOTE: This limit is set with base-2 (1GB = 1024MB).");
             return true;
         }
 
@@ -565,13 +565,13 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 
         // Help/Info section of the Total SD-Card size label
         if (obj == ui->lblCardSize) {
-            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This is the detected total size of the ArkOS SD-Card you've flashed the image to.\n\nNOTE: It is normal if the drive shows less space than the card is advertised with (for example showing 31GB for a 32GB Card).\n\nThis simply put has to do with filesystem overhead and other technical things ;) (or the calculation method you've selected bellow).\n\nIf you noticed that the sizes don't add up perfectly (especially when using base-10), then please read the help to understand why.");
+            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This is the detected total size of the (d)ArkOS SD-Card you've flashed the image to.\n\nNOTE: It is normal if the drive shows less space than the card is advertised with (for example showing 31GB for a 32GB Card).\n\nThis simply put has to do with filesystem overhead and other technical things ;) (or the calculation method you've selected bellow).\n\nIf you noticed that the sizes don't add up perfectly (especially when using base-10), then please read the help to understand why.");
             return true;
         }
 
         // Help/Info section of the Minimal Linux Partition Size Label
         if (obj == ui->lblMinimalLinuxPartitionSize){
-            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This is the minimal size the Linux/ArkOS partition needs to be.\n\nThis size has been set by the developer of the ArkOS Image you've used to flash your SD-Card with.\n\nYou are not be able make the Linux partition smaller than this value.");
+            QMessageBox::information(this, "XNL R36 Linux Partition Sizer", "This is the minimal size the Linux/ArkOS partition needs to be.\n\nThis size has been set by the developer of the (d)ArkOS Image you've used to flash your SD-Card with.\n\nYou are not be able make the Linux partition smaller than this value.");
             return true;
         }
 
@@ -811,7 +811,7 @@ void MainWindow::detectBootDrive() {
                     }
                     
                     if(MountAttemptResult == 100){  // Mounting failed due to the user refusing XNL R36 Linux Partitioner Mounting it
-                        QMessageBox::critical(nullptr, "Mount Required To Proceed", "Boot drive not mounted, please keep in mind that you will NEED to mount the boot drive/partition to be able to configure the ArkOS installation script.\n\nThe XNL R36 Linux Partition Sizer will now resume searching for more BOOT partitions, but if it doesn't find any it will exit due to the fact it doesn't have any (mounted) boot drives to work with.");
+                        QMessageBox::critical(nullptr, "Mount Required To Proceed", "Boot drive not mounted, please keep in mind that you will NEED to mount the boot drive/partition to be able to configure the (d)ArkOS installation script.\n\nThe XNL R36 Linux Partition Sizer will now resume searching for more BOOT partitions, but if it doesn't find any it will exit due to the fact it doesn't have any (mounted) boot drives to work with.");
                     }
                 }else{
                     BOOTPartitionMountPoint = DetectedMountPoint;
@@ -822,7 +822,7 @@ void MainWindow::detectBootDrive() {
 
                 if(MountAttemptResult == 0){
                     // Even though we did made it "all the way through" the BOOT Partition detection, we're not there yet ;)
-                    // We will still need to detect IF it actually has the bootfiles which belong to the R36/RG351MP/Fresh ArkOS Image
+                    // We will still need to detect IF it actually has the bootfiles which belong to the R36/RG351MP/Fresh (d)ArkOS Image
                     
                     // So first we'll check if the dtb file is present or not, which should have this name if it's the rg351mp image which has
                     // been used as explained in my tutorial (since this tool is also intended to be used with that image, and my tutorial ;) )
@@ -835,14 +835,14 @@ void MainWindow::detectBootDrive() {
                         if (QFile::exists(FirstBootScriptPath) && QFile::exists(ExpandtoExfatScriptPath)){
                             // Now we'll check if BOTH the firstboot.sh and expandtoexfat.sh script are (still) present on the boot partition of the SD-Card,
                             // if this isn't the case, then this card most likely has already been used to boot an R36/RG351MP etc, and thus we will no longer be able
-                            // to manipulate the ArkOS "first initialization script" which resizes the partitions
+                            // to manipulate the (d)ArkOS "first initialization script" which resizes the partitions
 
                             // Detect if the SD-Card already contains a backup of the original boot files, this would indicate that the
                             // user had previously edited the files already but for example decided to make some additional adjustments.
                             // this is for example needed to prevent that the minimal size won't be locked to their manually set size
                             if (QFile::exists(ExpandtoExfatScriptXNLBackupPath))
                             {
-                                // Get the currently configured Linux Partition Size (from the backupped Initial Boot Scripts of ArkOS)
+                                // Get the currently configured Linux Partition Size (from the backupped Initial Boot Scripts of (d)ArkOS)
                                 CurLinuxArkOSPartSize = GetCurrentArkOSPartSize(BOOTPartitionMountPoint + "/expandtoexfat.xbck");
                                 // Register that we are working with a value from the backup script instead of the 'main script'
                                 // otherwise safety checks during saving will fail!
@@ -854,16 +854,15 @@ void MainWindow::detectBootDrive() {
                             }
                             else
                             {
-                                // Get the currently configured Linux Partition Size (from the ORIGINAL Initial Boot Scripts of ArkOS)
+                                // Get the currently configured Linux Partition Size (from the ORIGINAL Initial Boot Scripts of (d)ArkOS)
                                 CurLinuxArkOSPartSize = GetCurrentArkOSPartSize(BOOTPartitionMountPoint + "/expandtoexfat.sh");
                             }
-
                             if (CurLinuxArkOSPartSize > 0)
                             {
                                 // We'll register that we've found a matching boot drive that is (well should be) ready to modify
                                 hasBoot = true;
-
-                                // This is NOT just the boot partition or the ArkOS partition but the entire SDCard it's size!
+                                
+                                // This is NOT just the boot partition or the (d)ArkOS partition but the entire SDCard it's size!
                                 QProcess lsblkSize;
                                 lsblkSize.start("lsblk", QStringList() << "-b" << "-o" << "SIZE" << "-n" << "-d" << QString("/dev/%1").arg(drive));
                                 lsblkSize.waitForFinished();
@@ -883,24 +882,24 @@ void MainWindow::detectBootDrive() {
                                 {
                                     // Show a message box which will explain that we could not properly parse the data from the script file from the SD-Card.
                                     // This could be due to an incompatible script, modified script, corrupted file, basically about anything.
-                                    QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nThere was an error while trying to parse the required Linux partition size from the expandtoexfat script.\n\nThis could either mean that your script is not compatible with this program (anymore), that you are trying to modify a bootdrive which this program isn't intended for, or that for example the ArkOS Developer(s) have changed the file so drastically that The XNL R36 Linux Partition Sizer now needs an update to be compatible (again).\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
+                                    QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nThere was an error while trying to parse the required Linux partition size from the expandtoexfat script.\n\nThis could either mean that your script is not compatible with this program (anymore), that you are trying to modify a bootdrive which this program isn't intended for, or that for example the (d)ArkOS Developer(s) have changed the file so drastically that The XNL R36 Linux Partition Sizer now needs an update to be compatible (again).\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
                                     XNLExit();
                                 }
                                 // The error when when the required startMarker or endMarker could not be found in the expandtoexfat script (most likely indicating that the developer has changed the script significantly)
                                 if (CurLinuxArkOSPartSize == -3)
                                 {
                                     // Show a message box which will explain that we could not detect the required data in the expandtoextfat script
-                                    QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nCould not detect the required data in the expandtoexfat script.\n\nThis could most likely mean that the ArkOS developer has changed the script and/or it's internal commands in such a way that the XNL R36 Linux Partition Sizer first requires an update before it is compatible again.\n\nIt COULD however also mean that you are trying to modify a boot drive which this application is not compatible with.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
+                                    QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nCould not detect the required data in the expandtoexfat script.\n\nThis could most likely mean that the (d)ArkOS developer has changed the script and/or it's internal commands in such a way that the XNL R36 Linux Partition Sizer first requires an update before it is compatible again.\n\nIt COULD however also mean that you are trying to modify a boot drive which this application is not compatible with.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
                                     XNLExit();
                                 }
 
                                 // Show a message box which will explain that we encountered an unknown error while trying to process the expandtoexfat script
-                                QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nAn unknown exception occurred while trying to process the expandtoexfat script from the SD-Card.\n\nPlease remove the SD-Card, reinsert it and try again. If the problem persists, then you could also try to re-flash the ArkOS image to your SD-Card.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
+                                QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nAn unknown exception occurred while trying to process the expandtoexfat script from the SD-Card.\n\nPlease remove the SD-Card, reinsert it and try again. If the problem persists, then you could also try to re-flash the (d)ArkOS image to your SD-Card.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
                                 XNLExit();
                             }
                         }else{
                             // If we DID found the expected dtb file but we did NOT find the firstboot files, then this means
-                            // that this card has already been setup by the ArkOS and thus the partitioning already took place
+                            // that this card has already been setup by the (d)ArkOS and thus the partitioning already took place
                             // In this instance we will just outright refuse to modify the partitions, because we don't want to be
                             // the possible cause for data and/or savegame loss etc.
                             QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, can't continue!\n\nWhile the correct drive and boot file(s) where detected for the R36S/R36H, it seems like it that this SD-Card has already been through the initial boot process!\n\nThe XNL R36 Linux Partition Sizer needs to be used DIRECTLY after you've flashed the image to the SD-Card, and BEFORE you insert it into the R36S/R36H for the first time.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
@@ -922,9 +921,9 @@ void MainWindow::detectBootDrive() {
                     ui->lblDriveLttr->setText(BOOTPartitionMountPoint);
 
                 }
-            }else if (label == "EASYROMS" && fstype == "ntfs"){
+            }else if ((label == "EASYROMS" && fstype == "ntfs") || (label == "EASYROMS" && fstype == "vfat")){
                 hasEasyroms = true;
-            }else if (fstype == "ext4"){
+            }else if (fstype == "ext4" || fstype == "btrfs"){ // Added btrfs for dArkOS support!
                 hasRoot = true;
             }
         }
@@ -938,9 +937,9 @@ void MainWindow::detectBootDrive() {
     if (correctBootDrivesFound < 1)
     {
         if(BootedInIgnoreCompatibility){
-            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Could not detect a (suitable) R36S/R36H SD-Card and/or boot partition!<br><br>To use the XNL R36 Linux Partition Sizer you will need to run this program DIRECTLY after flashing the ArkOS image to the SD-Card and BEFORE inserting (and booting) it into the R36S/R36H for the first time.<br><br>Note: If you are experiencing detection issues, you might try to remove the SD-Card from the computer, re-insert it and then try to run the XNL R36 Linux Partition Sizer again.<br><br>The XNL R36 Linux Partition Sizer will now exit.<br>");
+            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Could not detect a (suitable) R36S/R36H SD-Card and/or boot partition!<br><br>To use the XNL R36 Linux Partition Sizer you will need to run this program DIRECTLY after flashing the (d)ArkOS image to the SD-Card and BEFORE inserting (and booting) it into the R36S/R36H for the first time.<br><br>Note: If you are experiencing detection issues, you might try to remove the SD-Card from the computer, re-insert it and then try to run the XNL R36 Linux Partition Sizer again.<br><br>The XNL R36 Linux Partition Sizer will now exit.<br>");
         }else{
-            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Could not detect a (suitable) R36S/R36H SD-Card and/or boot partition!<br><br>To use the XNL R36 Linux Partition Sizer you will need to run this program DIRECTLY after flashing the ArkOS image to the SD-Card and BEFORE inserting (and booting) it into the R36S/R36H for the first time.<br><br>Note: If you are experiencing detection issues, you might try to remove the SD-Card from the computer, re-insert it and then try to run the XNL R36 Linux Partition Sizer again.<br><br>NOTE 2: This program does NOT support card readers which use a device path like /dev/mmcblk...<br><br>IF you are trying to use this program for another device than the R36, then you can TRY to force it to continue anyway by starting this program from the terminal using the argument:<br><b>--ignore-compat</b><br><br>The XNL R36 Linux Partition Sizer will now exit.<br>");
+            QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Could not detect a (suitable) R36S/R36H SD-Card and/or boot partition!<br><br>To use the XNL R36 Linux Partition Sizer you will need to run this program DIRECTLY after flashing the (d)ArkOS image to the SD-Card and BEFORE inserting (and booting) it into the R36S/R36H for the first time.<br><br>Note: If you are experiencing detection issues, you might try to remove the SD-Card from the computer, re-insert it and then try to run the XNL R36 Linux Partition Sizer again.<br><br>NOTE 2: This program does NOT support card readers which use a device path like /dev/mmcblk...<br><br>IF you are trying to use this program for another device than the R36, then you can TRY to force it to continue anyway by starting this program from the terminal using the argument:<br><b>--ignore-compat</b><br><br>The XNL R36 Linux Partition Sizer will now exit.<br>");
         }
 
         // Offer to unmount the boot partition again (because we've mounted it with this program)
@@ -980,7 +979,7 @@ void MainWindow::detectBootDrive() {
             // If we detected that we are using data from a backup script (indicating another round of editing)
             if (UsedBackupScript)
             {
-                // And the "re-loaded" user set value is loaded correctly AND the loaded original ArkOS partition size (set by the image Developer) are correct
+                // And the "re-loaded" user set value is loaded correctly AND the loaded original (d)ArkOS partition size (set by the image Developer) are correct
                 if (CurrentSetUserSize >= 0 && CurLinuxArkOSPartSize > 0)
                 {
                     // then we'll going to make sure that the slider (re-)loads at the correct position again.
@@ -990,7 +989,7 @@ void MainWindow::detectBootDrive() {
                 else
                 {
                     // If we detected a possible issue with the back up, then we won't allow re-editing of the file(s) either anymore!
-                    QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, but it seems like it that something is going wrong!\n\nThe XNL R36 Linux Partition Sizer isn't able to properly (re-)load of your previous edit of this boot drive!\n\nYou could manually try to revert the back up by removing expandtoexfat.sh and renaming expandtoexfat.xbck to expandtoexfat.sh after that, but it might also be required to re-flash the ArkOS image to your SD-Card.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
+                    QMessageBox::critical(nullptr, "XNL R36 Linux Partition Resizer - Can't Continue", "Sorry, but it seems like it that something is going wrong!\n\nThe XNL R36 Linux Partition Sizer isn't able to properly (re-)load of your previous edit of this boot drive!\n\nYou could manually try to revert the back up by removing expandtoexfat.sh and renaming expandtoexfat.xbck to expandtoexfat.sh after that, but it might also be required to re-flash the (d)ArkOS image to your SD-Card.\n\nThe XNL R36 Linux Partition Sizer will now exit.\n");
 
                     // Offer to unmount the boot partition again (because we've mounted it with this program)
                     // This call SHOULD not be needed here since it should already bail-out when a boot-drive has been mounted but the file structure doesn't match, but as safety fallback I did included it here
@@ -1164,10 +1163,10 @@ QString MainWindow::EstimateSDCardSize(qint64 DetectedSizeInBytes)
 
 //==================================================================================================
 // This function is used to read the minimal set Linux/ArkOS partition size from the file
-// expandtoexfat.sh on the BOOT Partition. This file is used during the initial boot of ArkOS
-// after flashing the ArkOS Image to the SD-Card. The size read from this file is set by the developer
-// of the ArkOS image that has been used to flash this SD-Card, and thus we will not allow the users of
-// XNL R36 Linux Partition Sizer to make the Linux/ArkOS partition smaller than the size set by the ArkOS/Image
+// expandtoexfat.sh on the BOOT Partition. This file is used during the initial boot of (d)ArkOS
+// after flashing the (d)ArkOS Image to the SD-Card. The size read from this file is set by the developer
+// of the (d)ArkOS image that has been used to flash this SD-Card, and thus we will not allow the users of
+// XNL R36 Linux Partition Sizer to make the Linux/ArkOS partition smaller than the size set by the (d)ArkOS/Image
 // developer in that file.
 //==================================================================================================
 qint64 MainWindow::GetCurrentArkOSPartSize(const QString &filePath)
@@ -1219,7 +1218,7 @@ qint64 MainWindow::GetCurrentArkOSPartSize(const QString &filePath)
     else
     {
         // If we could not detect the correct startMarker or endMarker, then we'll return a 'custom error code' (-3) so that
-        // we can inform the user that we suspect that this is either not a valid ArkOS initial boot file, or that the file for
+        // we can inform the user that we suspect that this is either not a valid (d)ArkOS initial boot file, or that the file for
         // example might have been updated/changed and that this Application is no longer compatible with this file.
         return -3;
     }
@@ -1278,8 +1277,19 @@ bool MainWindow::ModifyBootScript(const QString &filePath, const QString &newSiz
                 // Insert the cleanup code and comment above the found line
                 fileContent.insert(insertIndex, insertText);
             } else {
-                // If we didn't find that line, warn the user to clean up the backup manually
-                QMessageBox::warning(parent, "XNL R36 Linux Partition Sizer", "Sorry, XNL R36 Linux Partition Sizer was unable to add the automatic clean-up lines to remove the expandtoexfat.xbck after the device has successfully booted into Linux/ArkOS.\n\nThis means that you will have to remove the expandtoexfat.xbck file yourself after your device has fully completed the partitioning.\n");
+                // Next we'll try to inject the cleanup line for dArkOS if the (d)ArkOS script fails
+                insertIndex = fileContent.indexOf("if [ \"$exitcode\" == \"0\" ]; then");
+                if (insertIndex != -1) {
+                    // Find the end of the line (newline)
+                    int endOfLine = fileContent.indexOf('\n', insertIndex);
+                    if (endOfLine != -1) {
+                        // Insert the cleanup code and comment underneath the found line
+                        fileContent.insert(endOfLine + 1, insertText);
+                    }
+                }else{
+                    // If we didn't find that line, warn the user to clean up the backup manually
+                    QMessageBox::warning(parent, "XNL R36 Linux Partition Sizer", "Sorry, XNL R36 Linux Partition Sizer was unable to add the automatic clean-up lines to remove the expandtoexfat.xbck after the device has successfully booted into Linux/(d)ArkOS.\n\nThis means that you will have to remove the expandtoexfat.xbck file yourself after your device has fully completed the partitioning.\n");
+                }
             }
         }
 
