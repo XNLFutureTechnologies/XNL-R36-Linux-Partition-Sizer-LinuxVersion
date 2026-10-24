@@ -1,3 +1,12 @@
+# Archived Status (24-10-2026)
+This project is now officially archived and will no longer be updated nor supported!
+It was (is) intended for use with ArkOS, and I no longer use ArkOS/dArkOS so I'm not able to keep maintaining this (simple) script/tool anymore either. 
+
+I no longer use ArkOS/dArkOS and thus will not be able to support or update this project anymore, I'm currently actively working on my own distro specifically designed and optimized for the R36 (from scratch), and thus it's for me impossible to keep track of all ArkOS (now dArkOS) changes in the future, and to be very honest; I'm also not really up to it/'in the mood' to keep doing it for a project I no longer use myself for various reasons (NOTHING bad about ArkOS/dArkOS! it just does not fit my needs and doesn't do exactly what I want to do with it).
+IF Anyone else does want to keep maintaining this project for other ArkOS/dArkOS users on the R36 for example, then you are of course free (AND WELCOME!) to fork the project and continue the project 😊, do obviously respect the GPL license and keep the credits as you should 😊
+Thanks you all for a GREAT time ArkOS, but it's time to move on to bigger things now 😉 
+
+
 # XNL R36 Linux Partition Sizer (Linux Version)
 This is the source code of the [XNL R36 Linux Partition Size](https://www.teamxnl.com/r36-linux-partition-sizer/).  
 
